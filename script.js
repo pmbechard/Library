@@ -6,18 +6,19 @@ class Library {
 
     addToInventory(book) {
         this.inventory.push(book);
-        this.addToTable(book);
+        this.updateTable();
     }
 
     removeFromInventory(book) {
-        this.inventory = this.inventory.splice(0, this.inventory.indexOf(book)) + this.inventory.splice(this.inventory.indexOf(book)+1);
+        this.inventory.splice(this.inventory.indexOf(book), 1);
+        this.updateTable();
     }
 
     getAllBooks() {
         return this.inventory;
     }
 
-    addToTable() {
+    updateTable() {
         // Updating List Animation goes here...
         const uniqueBooks = [... new Set(this.inventory)];
         const tbody = document.querySelector('tbody');
@@ -71,18 +72,8 @@ class Book {
     }
 }
 
-// Add a book
-/*
-<tr>
-    <td><img src="images/info_black_24dp.svg" alt="More info">Fluent Python</td>
-    <td>Luciano Ramalho</td>
-    <td>2015</td>
-    <td>O'Reilly</td>
-    <td>3</td>
-    <td><img src="images/file_download_black_24dp.svg" alt="Return"><img src="images/logout_black_24dp.svg" alt="Check out"></td>
-</tr>
-*/
 
+// For Examples
 const myLib = new Library('Allie\'s Home Library');
 const book1 = new Book('Fluent Python', 'Luciano Ramalho', '2015', 'O\'Reilly', 3, myLib);
 const book2 = new Book('American Psycho', 'Bret Easton Ellis', '1991', 'Random House', 1, myLib);
