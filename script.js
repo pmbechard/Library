@@ -6,7 +6,7 @@ class Library {
 
     addToInventory(book) {
         this.inventory.push(book);
-        this.inventory.sort();
+        this.addToTable(book);
     }
 
     removeFromInventory(book) {
@@ -15,6 +15,30 @@ class Library {
 
     getAllBooks() {
         return this.inventory;
+    }
+
+    addToTable() {
+        // Updating List Animation goes here...
+        const uniqueBooks = [... new Set(this.inventory)];
+        const tbody = document.querySelector('tbody');
+        tbody.innerHTML = '';
+        for (let i = 0; i < uniqueBooks.length; i++) {
+            const newRow = tbody.appendChild(document.createElement('tr'));
+            for (let key in uniqueBooks[i]) {
+                if (key !== 'belongsTo') {
+                    if (key === 'title') {
+                        const tableData = newRow.appendChild(document.createElement('td'));
+                        tableData.innerHTML = '<img src="images/info_black_24dp.svg" alt="More info"></img>' + uniqueBooks[i][key];
+                    } else if (key === 'currentlyHeldBy') {
+                        const tableData = newRow.appendChild(document.createElement('td'));
+                        tableData.innerHTML = '<img src="images/file_download_black_24dp.svg" alt="Return"><img src="images/logout_black_24dp.svg" alt="Check out">';            
+                    } else {
+                        const tableData = newRow.appendChild(document.createElement('td'));
+                        tableData.textContent = uniqueBooks[i][key];
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -47,3 +71,18 @@ class Book {
     }
 }
 
+// Add a book
+/*
+<tr>
+    <td><img src="images/info_black_24dp.svg" alt="More info">Fluent Python</td>
+    <td>Luciano Ramalho</td>
+    <td>2015</td>
+    <td>O'Reilly</td>
+    <td>3</td>
+    <td><img src="images/file_download_black_24dp.svg" alt="Return"><img src="images/logout_black_24dp.svg" alt="Check out"></td>
+</tr>
+*/
+
+const myLib = new Library('Allie\'s Home Library');
+const book1 = new Book('Fluent Python', 'Luciano Ramalho', '2015', 'O\'Reilly', 3, myLib);
+const book2 = new Book('American Psycho', 'Bret Easton Ellis', '1991', 'Random House', 1, myLib);

@@ -1,3 +1,9 @@
+:root {
+    --green: rgb(67, 163, 93);
+    --blue: rgb(52, 125, 235);
+    
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -17,12 +23,17 @@ html {
 header {
     height: 20vh;
     width: 100vw;
-    background-color: black;
+    background-color: rgb(67, 163, 93);
     color: white;
     
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+header img {
+    height: 40px;
+    margin-right: 20px;
 }
 
 section {
@@ -34,9 +45,40 @@ section {
 
 section .filters {
     height: 10vh;
+    width: 100%;
     padding: 20px;
     text-align: center;
     font-weight: bold;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.filters button {
+    background-color: var(--blue);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 30px;
+    color: white;
+    font-weight: bold;
+    margin: 0 10px;
+}
+
+.filters button:hover {
+    opacity: 0.7;
+    transform: scale(1.02);
+}
+
+.filters button:active {
+    opacity: 0.9;
+    transform: scale(1.05);
+}
+
+.search-area {
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 #book-search {
@@ -44,7 +86,7 @@ section .filters {
     height: 25px;
     border-radius: 8px;
     border-color: black;
-    display: block;
+    padding: 0 10px;
 }
 
 .books-list {
@@ -57,17 +99,17 @@ thead {
     top: 0;    
 }
 
-
-
 footer {
     height: 5vh;
     width: 100vw;
-    background-color: black;
+    background-color: rgb(190,190,190);
     color: white;
     
     display: flex;
     justify-content: center;
     align-items: center;
+
+    font-weight: bold;
 }
 
 table {
@@ -76,25 +118,46 @@ table {
     letter-spacing: 1px;
     font-size: 0.8rem;
 }
-  
+
+tr td:first-child img {
+    height: 15px;
+    margin-right: 5px;
+}
+
+tr td:last-child img {
+    padding: 0 20px;
+    cursor: pointer;
+}
+
+
+tr img:hover {
+    opacity: 0.7;
+    transform: scale(1.1);
+
+}
+tr img:active {
+    opacity: 0.9;
+    transform: scale(1.15);
+}
+
 td, th {
     border: 1px solid rgb(190,190,190);
     padding: 10px 20px;
-    width: calc((80vw/5))
+    width: calc((80vw/6))
 }
-  
+
 th {
     background-color: rgb(235,235,235);
 }
-  
+
 td {
     text-align: center;
 }
-  
+
 tr:nth-child(even) td {
     background-color: rgb(250,250,250);
 }
-  
+
 tr:nth-child(odd) td {
     background-color: rgb(245,245,245);
 }
