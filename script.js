@@ -124,6 +124,8 @@ const addExistingBookButton = document.getElementById('add-existing-book-button'
 const closeExistingBookModal = document.querySelector('#add-existing-book-modal .close');
 
 addExistingBookButton.onclick = function() {
+    const datalist = document.querySelector('#add-existing-book-modal datalist');
+    datalist.innerHTML = '';
     const allInputs = document.querySelectorAll('#add-existing-book-modal input');
     allInputs.forEach( (input) => {
         input.value = '';
@@ -170,6 +172,8 @@ const removeBookButton = document.getElementById('remove-book-button');
 const closeRemoveBookModal = document.querySelector('#remove-book-modal .close');
 
 removeBookButton.onclick = function() {
+    const datalist = document.querySelector('#remove-book-modal datalist');
+    datalist.innerHTML = '';
     const allInputs = document.querySelectorAll('#remove-book-modal input');
     allInputs.forEach( (input) => {
         input.value = '';
