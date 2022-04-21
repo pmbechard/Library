@@ -71,6 +71,7 @@ section .filters {
     color: white;
     font-weight: bold;
     margin: 0 10px;
+    cursor: pointer;
 }
 
 .filters button:hover {
@@ -236,6 +237,7 @@ tr:nth-child(odd) td {
     color: white;
     font-weight: bold;
     margin: 0 10px;
+    cursor: pointer;
 }
 
 .modal-content .button:hover {

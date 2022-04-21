@@ -80,11 +80,11 @@ submitNewBook.addEventListener('mousedown', () => {
     const publisher = document.getElementById('publisher').value;
     const quantity = document.getElementById('quantity').value;
     const book = new Book(title, author, year, publisher, quantity, myLib);
-    modal.style.display = "none";
+    addNewBookModal.style.display = "none";
 });
 
 const cancelSubmitNew = document.getElementById('cancel-submit-new');
-cancelSubmitNew.addEventListener('mousedown', () => modal.style.display = "none");
+cancelSubmitNew.addEventListener('mousedown', () => addNewBookModal.style.display = "none");
 
 
 
@@ -96,34 +96,25 @@ const book2 = new Book('American Psycho', 'Bret Easton Ellis', '1991', 'Random H
 
 
 
-// MODALS
+// ADD NEW BOOK MODAL
+const addNewBookModal = document.getElementById('add-new-book-modal');
+const addNewBookButton = document.getElementById('add-new-book-button');
+const closeNewBookModal = document.querySelector('#add-new-book-modal .close');
 
-// Get the modal
-var modal = document.getElementById("add-new-book-modal");
-
-// Get the button that opens the modal
-var btn = document.getElementById("add-new-book-button");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks on the button, open the modal
-btn.onclick = function() {
+addNewBookButton.onclick = function() {
     const submitFormInputs = document.querySelectorAll('.modal input');
     submitFormInputs.forEach(input => {
         input.value = '';
     });
-    modal.style.display = "block";
+    addNewBookModal.style.display = 'block';
 }
 
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-    modal.style.display = "none";
+closeNewBookModal.onclick = function() {
+    addNewBookModal.style.display = 'none';
 }
 
-// When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
+    if (event.target === addNewBookModal) {
+        addNewBookModal.style.display = 'none';
     }
 }
