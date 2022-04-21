@@ -119,3 +119,22 @@ window.onclick = function(event) {
         addNewBookModal.style.display = 'none';
     }
 }
+
+// ADD EXISTING BOOK MODAL
+const addExistingBookModal = document.getElementById('add-existing-book-modal');
+const addExistingBookButton = document.getElementById('add-existing-book-button');
+const closeExistingBookModal = document.querySelector('#add-existing-book-modal .close');
+
+addExistingBookButton.onclick = function() {
+    addExistingBookModal.style.display = 'block';
+}
+
+closeExistingBookModal.onclick = function() {
+    addExistingBookModal.style.display = 'none';
+}
+
+window.onclick = function(event) {
+    if (event.target === addExistingBookModal) {
+        addExistingBookModal.style.display = 'none';
+    }
+}
