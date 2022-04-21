@@ -29,7 +29,7 @@ class Library {
                 if (key !== 'belongsTo') {
                     if (key === 'title') {
                         const tableData = newRow.appendChild(document.createElement('td'));
-                        tableData.innerHTML = '<img src="images/info_black_24dp.svg" alt="More info"></img>'
+                        // tableData.innerHTML = '<img src="images/info_black_24dp.svg" alt="More info"></img>'
                         tableData.textContent = uniqueBooks[i][key];
                     } else if (key === 'currentlyHeldBy') {
                         const tableData = newRow.appendChild(document.createElement('td'));
@@ -124,6 +124,10 @@ const addExistingBookButton = document.getElementById('add-existing-book-button'
 const closeExistingBookModal = document.querySelector('#add-existing-book-modal .close');
 
 addExistingBookButton.onclick = function() {
+    const allInputs = document.querySelectorAll('#add-existing-book-modal input');
+    allInputs.forEach( (input) => {
+        input.value = '';
+    });
     const booksSelectList = document.getElementById('books-select-list');
     myLib.inventory.forEach( (item) => {
         const newOption = document.createElement('option');
