@@ -73,27 +73,11 @@ class Book {
     }
 }
 
-const submitNewBook = document.getElementById('submit-new');
-submitNewBook.addEventListener('mousedown', () => {
-    const title = document.getElementById('title').value;
-    const author = document.getElementById('author').value;
-    const year = document.getElementById('year').value;
-    const publisher = document.getElementById('publisher').value;
-    const quantity = document.getElementById('quantity').value;
-    const book = new Book(title, author, year, publisher, quantity, myLib);
-    addNewBookModal.style.display = "none";
-});
-
-const cancelSubmitNew = document.getElementById('cancel-submit-new');
-cancelSubmitNew.addEventListener('mousedown', () => addNewBookModal.style.display = "none");
-
-
 
 // Examples
 const myLib = new Library('Allie\'s Home Library');
 const book1 = new Book('Fluent Python', 'Luciano Ramalho', '2015', 'O\'Reilly', 3, myLib);
 const book2 = new Book('American Psycho', 'Bret Easton Ellis', '1991', 'Random House', 1, myLib);
-
 
 
 
@@ -120,12 +104,32 @@ window.onclick = function(event) {
     }
 }
 
+const submitNewBook = document.getElementById('submit-new');
+submitNewBook.addEventListener('click', () => {
+    const title = document.getElementById('title').value;
+    const author = document.getElementById('author').value;
+    const year = document.getElementById('year').value;
+    const publisher = document.getElementById('publisher').value;
+    const quantity = document.getElementById('quantity').value;
+    const book = new Book(title, author, year, publisher, quantity, myLib);
+    addNewBookModal.style.display = "none";
+});
+
+const cancelSubmitNew = document.getElementById('cancel-submit-new');
+cancelSubmitNew.addEventListener('click', () => addNewBookModal.style.display = "none");
+
 // ADD EXISTING BOOK MODAL
 const addExistingBookModal = document.getElementById('add-existing-book-modal');
 const addExistingBookButton = document.getElementById('add-existing-book-button');
 const closeExistingBookModal = document.querySelector('#add-existing-book-modal .close');
 
 addExistingBookButton.onclick = function() {
+    const booksSelectList = document.getElementById('books-select-list');
+    myLib.inventory.forEach( (item) => {
+        const newOption = document.createElement('option');
+        booksSelectList.appendChild(newOption);
+        newOption.textContent = item.title;
+    });
     addExistingBookModal.style.display = 'block';
 }
 
@@ -138,3 +142,20 @@ window.onclick = function(event) {
         addExistingBookModal.style.display = 'none';
     }
 }
+
+const submitExistingBook = document.getElementById('submit-add-existing');
+submitExistingBook.addEventListener('click', () => {
+    const bookToAdd = document.getElementById('book-select');
+    const amountToAdd = document.getElementById('add-amount');
+    myLib.inventory.forEach( (item) => {
+        if (item.title === bookToAdd.value) {
+            item.numInStock = parseInt(item.numInStock) + parseInt(amountToAdd.value);
+        }
+        myLib.updateTable();
+        addExistingBookModal.style.display = 'none';
+    });
+});
+
+
+const cancelSubmitExistingBook = document.getElementById('cancel-add-existing');
+cancelSubmitExistingBook.addEventListener('click', () => addExistingBookModal.style.display = "none");

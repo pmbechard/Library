@@ -56,7 +56,7 @@
                 <span class="close">&times;</span>
                 <h2>Add New Book</h2>
             </div>
-            <form action="" method="post">
+            <form action="" method="">
                 <ul>
                     <li>
                         <label for="title">Title</label>
@@ -93,6 +93,26 @@
                 <span class="close">&times;</span>
                 <h2>Add Existing Book</h2>
             </div>
+            <form action="" method="">
+                <ul>
+                    <li>
+                        <label for="book-select">Please choose a book</label>
+                        <input type="text" list="books-select-list" name="book-select" id="book-select">
+                        <datalist id="books-select-list">
+
+                        </datalist>
+                    </li>
+                    <li>
+                        <label for="add-amount">How many copies would you like to add?</label>
+                        <input type="number" name="add-amount" id="add-amount" min="0">
+                    </li>
+                </ul>
+                <div class="buttons">
+                    <div class="button" id="submit-add-existing">Submit</div>
+                    <div class="button" id="cancel-add-existing">Cancel</div>
+                </div>
+            </form>
+
         </div>
     </div>
 
