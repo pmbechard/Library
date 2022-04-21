@@ -161,3 +161,101 @@ tr:nth-child(even) td {
 tr:nth-child(odd) td {
     background-color: rgb(245,245,245);
 }
+
+
+
+
+
+/* MODALS */
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+  /* Modal Content/Box */
+.modal-header {
+    padding: 30px;
+    text-align: center;
+    background-color: rgb(190,190,190);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; 
+    border: 1px solid #888;
+    width: 30%;
+}
+
+.modal-content li {
+    list-style: none;
+    padding: 10px;
+
+    display: flex;
+    justify-content: center;
+}
+
+.modal-content form label {
+    min-width: 100px;
+}
+
+.modal-content form input {
+    min-width: 200px;
+    height: 25px;
+    border-radius: 8px;
+    border-color: black;
+    padding: 0 10px;
+}
+
+.modal-content .buttons {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+}
+
+.modal-content button {
+    background-color: var(--blue);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 30px;
+    color: white;
+    font-weight: bold;
+    margin: 0 10px;
+}
+
+.modal-content button:hover {
+    opacity: 0.7;
+    transform: scale(1.02);
+}
+
+.modal-content button:active {
+    opacity: 0.9;
+    transform: scale(1.05);
+}
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: relative;
+    top: -30px;
+    right: -20px;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}

@@ -21,8 +21,9 @@
                 <input type="search" name="book-search" id="book-search">
             </div>
             <div class="add-remove-buttons">
-                <button>Add New Book</button>
-                <button>Remove Book</button>
+                <button id="add-new-book-button">Add New</button>
+                <button id="add-existing-book-button">Add Existing</button>
+                <button id="remove-book-button">Remove</button>
             </div>
         </div>
 
@@ -48,6 +49,43 @@
     <footer>
         <small>Peyton Bechard &copy; 2022</small>
     </footer>
+
+    <div class="modal" id="add-new-book-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>Add New Book</h2>
+            </div>
+            <form action="" method="post">
+                <ul>
+                    <li>
+                        <label for="title">Title</label>
+                        <input type="text" name="title" id="title">
+                    </li>
+                    <li>
+                        <label for="author">Author</label>
+                        <input type="text" name="author" id="author">
+                    </li>
+                    <li>
+                        <label for="year">Year</label>
+                        <input type="text" name="year" id="year">
+                    </li>
+                    <li>
+                        <label for="publisher">Publisher</label>
+                        <input type="text" name="publisher" id="publisher">
+                    </li>
+                    <li>
+                        <label for="quantity">Quantity</label>
+                        <input type="text" name="quantity" id="quantity">
+                    </li>
+                </ul>
+                <div class="buttons">
+                    <button type="submit">Submit</button>
+                    <button>Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
 </body>
 </html>
