@@ -29,7 +29,8 @@ class Library {
                 if (key !== 'belongsTo') {
                     if (key === 'title') {
                         const tableData = newRow.appendChild(document.createElement('td'));
-                        tableData.innerHTML = '<img src="images/info_black_24dp.svg" alt="More info"></img>' + uniqueBooks[i][key];
+                        tableData.innerHTML = '<img src="images/info_black_24dp.svg" alt="More info"></img>'
+                        tableData.textContent = uniqueBooks[i][key];
                     } else if (key === 'currentlyHeldBy') {
                         const tableData = newRow.appendChild(document.createElement('td'));
                         tableData.innerHTML = '<img src="images/file_download_black_24dp.svg" alt="Return"><img src="images/logout_black_24dp.svg" alt="Check out">';            
