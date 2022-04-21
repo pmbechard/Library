@@ -163,3 +163,46 @@ submitExistingBook.addEventListener('click', () => {
 
 const cancelSubmitExistingBook = document.getElementById('cancel-add-existing');
 cancelSubmitExistingBook.addEventListener('click', () => addExistingBookModal.style.display = "none");
+
+// REMOVE BOOK MODAL
+const removeBookModal = document.getElementById('remove-book-modal');
+const removeBookButton = document.getElementById('remove-book-button');
+const closeRemoveBookModal = document.querySelector('#remove-book-modal .close');
+
+removeBookButton.onclick = function() {
+    const allInputs = document.querySelectorAll('#remove-book-modal input');
+    allInputs.forEach( (input) => {
+        input.value = '';
+    });
+    const booksRemoveList = document.getElementById('books-remove-list');
+    myLib.inventory.forEach( (item) => {
+        const newOption = document.createElement('option');
+        booksRemoveList.appendChild(newOption);
+        newOption.textContent = item.title;
+    });
+    const removeAmountInput = document.getElementById('remove-amount');
+    removeBookModal.style.display = 'block';
+};
+
+closeRemoveBookModal.onclick = function() {
+    removeBookModal.style.display = 'none';
+}
+
+window.onclick = function(event) {
+    if (event.target === removeBookModal) {
+        removeBookModal.style.display = 'none';
+    }
+}
+
+const submitRemoveBook = document.getElementById('submit-remove-book');
+submitRemoveBook.addEventListener('click', () => {
+    const bookToRemove = document.getElementById('book-remove');
+    const amountToRemove = document.getElementById('remove-amount');
+    myLib.inventory.forEach( (item) => {
+        if (item.title === bookToRemove.value) {
+            item.numInStock = parseInt(item.numInStock) - parseInt(amountToRemove.value);
+        }
+        myLib.updateTable();
+        removeBookModal.style.display = 'none';
+    });
+});

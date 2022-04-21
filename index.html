@@ -112,7 +112,34 @@
                     <div class="button" id="cancel-add-existing">Cancel</div>
                 </div>
             </form>
+        </div>
+    </div>
 
+    <div class="modal" id="remove-book-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>Remove Book</h2>
+            </div>
+            <form action="" method="">
+                <ul>
+                    <li>
+                        <label for="book-remove">Please choose a book</label>
+                        <input type="text" list="books-remove-list" name="book-remove" id="book-remove">
+                        <datalist id="books-remove-list">
+
+                        </datalist>
+                    </li>
+                    <li>
+                        <label for="remove-amount">How many copies would you like to remove?</label>
+                        <input type="number" name="remove-amount" id="remove-amount" min="0">
+                    </li>
+                </ul>
+                <div class="buttons">
+                    <div class="button" id="submit-remove-book">Submit</div>
+                    <div class="button" id="cancel-remove-book">Cancel</div>
+                </div>
+            </form>
         </div>
     </div>
 
