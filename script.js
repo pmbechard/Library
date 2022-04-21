@@ -72,6 +72,21 @@ class Book {
     }
 }
 
+const submitNewBook = document.getElementById('submit-new');
+submitNewBook.addEventListener('mousedown', () => {
+    const title = document.getElementById('title').value;
+    const author = document.getElementById('author').value;
+    const year = document.getElementById('year').value;
+    const publisher = document.getElementById('publisher').value;
+    const quantity = document.getElementById('quantity').value;
+    const book = new Book(title, author, year, publisher, quantity, myLib);
+    modal.style.display = "none";
+});
+
+const cancelSubmitNew = document.getElementById('cancel-submit-new');
+cancelSubmitNew.addEventListener('mousedown', () => modal.style.display = "none");
+
+
 
 // Examples
 const myLib = new Library('Allie\'s Home Library');
@@ -94,17 +109,21 @@ var span = document.getElementsByClassName("close")[0];
 
 // When the user clicks on the button, open the modal
 btn.onclick = function() {
-  modal.style.display = "block";
+    const submitFormInputs = document.querySelectorAll('.modal input');
+    submitFormInputs.forEach(input => {
+        input.value = '';
+    });
+    modal.style.display = "block";
 }
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
-  modal.style.display = "none";
+    modal.style.display = "none";
 }
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
 }
