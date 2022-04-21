@@ -221,6 +221,22 @@ tr:nth-child(odd) td {
     min-width: 100px;
 }
 
+#add-existing-book-modal .modal-content li {
+    list-style: none;
+    padding: 10px;
+    text-align: center;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+#add-existing-book-modal .modal-content form label {
+    min-width: 200px;
+}
+
+
 .modal-content .buttons {
     display: flex;
     justify-content: space-around;
