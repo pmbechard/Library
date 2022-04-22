@@ -1,3 +1,16 @@
+/*
+Library System
+by Peyton Bechard
+
+Last Updated: 22 Apr 2022
+
+To Do:
+    - Add Return/Check out functionality
+    - Add filtering arrows to Table columns
+    - Add More Info icon to see total copies, who checked out ...
+
+*/
+
 class Library {
     constructor(libraryName) {
         this.libraryName = libraryName
@@ -79,6 +92,36 @@ const myLib = new Library('Allie\'s Home Library');
 const book1 = new Book('Fluent Python', 'Luciano Ramalho', '2015', 'O\'Reilly', 3, myLib);
 const book2 = new Book('American Psycho', 'Bret Easton Ellis', '1991', 'Random House', 1, myLib);
 
+
+// SEARCH BAR
+const searchBar = document.getElementById('book-search');
+searchBar.addEventListener('keyup', () => {
+    const uniqueBooks = [... new Set(myLib.inventory)];
+    const matchingBooks = uniqueBooks.filter( (item) => {
+        const search = searchBar.value.toLowerCase();
+        return item.title.toLowerCase().includes(search) || item.author.toLowerCase().includes(search) || item.publisher.toLowerCase().includes(search) || item.year.includes(search);
+    });
+    const tbody = document.querySelector('tbody');
+    tbody.innerHTML = '';
+    for (let i = 0; i < matchingBooks.length; i++) {
+        const newRow = tbody.appendChild(document.createElement('tr'));
+        for (let key in matchingBooks[i]) {
+            if (key !== 'belongsTo') {
+                if (key === 'title') {
+                    const tableData = newRow.appendChild(document.createElement('td'));
+                    // tableData.innerHTML = '<img src="images/info_black_24dp.svg" alt="More info"></img>'
+                    tableData.textContent = matchingBooks[i][key];
+                } else if (key === 'currentlyHeldBy') {
+                    const tableData = newRow.appendChild(document.createElement('td'));
+                    tableData.innerHTML = '<img src="images/file_download_black_24dp.svg" alt="Return"><img src="images/logout_black_24dp.svg" alt="Check out">';            
+                } else {
+                    const tableData = newRow.appendChild(document.createElement('td'));
+                    tableData.textContent = matchingBooks[i][key];
+                }
+            }
+        }
+    }
+});
 
 
 // ADD NEW BOOK MODAL
