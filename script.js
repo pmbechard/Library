@@ -31,9 +31,9 @@ class Library {
         return this.inventory;
     }
 
-    updateTable() {
+    updateTable( bookList = this.inventory ) {
         // Updating List Animation goes here...
-        const uniqueBooks = [... new Set(this.inventory)];
+        const uniqueBooks = [... new Set(bookList)];
         const tbody = document.querySelector('tbody');
         tbody.innerHTML = '';
         for (let i = 0; i < uniqueBooks.length; i++) {
@@ -101,26 +101,7 @@ searchBar.addEventListener('keyup', () => {
         const search = searchBar.value.toLowerCase();
         return item.title.toLowerCase().includes(search) || item.author.toLowerCase().includes(search) || item.publisher.toLowerCase().includes(search) || item.year.includes(search);
     });
-    const tbody = document.querySelector('tbody');
-    tbody.innerHTML = '';
-    for (let i = 0; i < matchingBooks.length; i++) {
-        const newRow = tbody.appendChild(document.createElement('tr'));
-        for (let key in matchingBooks[i]) {
-            if (key !== 'belongsTo') {
-                if (key === 'title') {
-                    const tableData = newRow.appendChild(document.createElement('td'));
-                    // tableData.innerHTML = '<img src="images/info_black_24dp.svg" alt="More info"></img>'
-                    tableData.textContent = matchingBooks[i][key];
-                } else if (key === 'currentlyHeldBy') {
-                    const tableData = newRow.appendChild(document.createElement('td'));
-                    tableData.innerHTML = '<img src="images/file_download_black_24dp.svg" alt="Return"><img src="images/logout_black_24dp.svg" alt="Check out">';            
-                } else {
-                    const tableData = newRow.appendChild(document.createElement('td'));
-                    tableData.textContent = matchingBooks[i][key];
-                }
-            }
-        }
-    }
+    myLib.updateTable(matchingBooks);
 });
 
 
