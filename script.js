@@ -8,6 +8,8 @@ To Do:
     - Add Return/Check out functionality
     - Add filtering arrows to Table columns
     - Add More Info icon to see total copies, who checked out ...
+    - Add ability to edit
+    - Expand information to include ISBN, date registered, previous checkout list, etc.
 
 */
 
@@ -103,6 +105,45 @@ searchBar.addEventListener('keyup', () => {
     });
     myLib.updateTable(matchingBooks);
 });
+
+
+// TABLE SORTING BUTTONS
+const titleSort = document.getElementById('title-sort');
+let sortedByTitleAscending = false;
+titleSort.addEventListener('click', () => {
+    if (!sortedByTitleAscending) {
+        const booksTitleAscending = myLib.inventory.sort( (a, b) => {
+            const titleA = a.title.toLowerCase();
+            const titleB = b.title.toLowerCase();
+            if (titleA > titleB) {
+                return 1;
+            } else if (titleB > titleA) {
+                return -1;
+            } else {
+                return 0;
+            }
+        });
+        myLib.updateTable(booksTitleAscending);
+        sortedByTitleAscending = true;
+        titleSort.setAttribute('src', 'images/arrow_drop_down_FILL0_wght400_GRAD0_opsz48.svg');
+    } else {
+        const booksTitleDescending = myLib.inventory.sort( (a, b) => {
+            const titleA = a.title.toLowerCase();
+            const titleB = b.title.toLowerCase();
+            if (titleA < titleB) {
+                return 1;
+            } else if (titleB < titleA) {
+                return -1;
+            } else {
+                return 0;
+            }
+        });
+        myLib.updateTable(booksTitleDescending);
+        sortedByTitleAscending = false;
+        titleSort.setAttribute('src', 'images/arrow_drop_up_FILL0_wght400_GRAD0_opsz48.svg');
+    }
+});
+
 
 
 // ADD NEW BOOK MODAL
