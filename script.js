@@ -262,8 +262,8 @@ let sortedByStockAscending = false;
 stockSort.addEventListener('click', () => {
     if (!sortedByStockAscending) {
         const booksStockAscending = myLib.inventory.sort( (a, b) => {
-            const stockA = Number.parseInt(a.quantity);
-            const stockB = Number.parseInt(b.quantity);
+            const stockA = Number.parseInt(a.numInStock);
+            const stockB = Number.parseInt(b.numInStock);
             return stockA - stockB;
         });
         myLib.updateTable(booksStockAscending);
@@ -271,9 +271,9 @@ stockSort.addEventListener('click', () => {
         stockSort.setAttribute('src', 'images/arrow_drop_down_FILL0_wght400_GRAD0_opsz48.svg');
     } else {
         const booksStockDescending = myLib.inventory.sort( (a, b) => {
-            const stockA = Number.parseInt(a.quantity);
-            const stockB = Number.parseInt(b.quantity);
-            return stockA - stockB;
+            const stockA = Number.parseInt(a.numInStock);
+            const stockB = Number.parseInt(b.numInStock);
+            return stockB - stockA;
         });
         myLib.updateTable(booksStockDescending);
         sortedByStockAscending = false;
