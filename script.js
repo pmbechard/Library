@@ -2,14 +2,16 @@
 Library System
 by Peyton Bechard
 
-Last Updated: 22 Apr 2022
+Last Updated: 23 Apr 2022
 
 To Do:
     - Add Return/Check out functionality
-    - Add filtering arrows to Table columns
+    - Set max limit on removable # / delete item when 0
+    - In Stock should show '# out of #'
     - Add More Info icon to see total copies, who checked out ...
     - Add ability to edit
     - Expand information to include ISBN, date registered, previous checkout list, etc.
+    - Refactor repetition in table sorting methods
 
 */
 
