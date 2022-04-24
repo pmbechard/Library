@@ -10,6 +10,7 @@ To Do:
     - Add ability to edit
     - Expand information to include ISBN, date registered, previous checkout list, etc.
     - Refactor repetition in table sorting methods
+    - Fix border of sticky thead where you can see little black spots above the headings
 
 */
 
@@ -51,7 +52,7 @@ class Library {
                         tableData.textContent = uniqueBooks[i][key];
                     } else if (key === 'currentlyHeldBy') {
                         const tableData = newRow.appendChild(document.createElement('td'));
-                        tableData.innerHTML = '<img src="images/file_download_black_24dp.svg" alt="Return"><img src="images/logout_black_24dp.svg" alt="Check out">';            
+                        tableData.innerHTML = '<img src="images/file_download_black_24dp.svg" alt="Return" id="return-book-button"><img src="images/logout_black_24dp.svg" alt="Check out" id="checkout-book-button">';            
                     } else if (key === 'numInStock') {
                         const tableData = newRow.appendChild(document.createElement('td'));
                         tableData.textContent = `${uniqueBooks[i][key]} of ${Number.parseInt(uniqueBooks[i][key]) + uniqueBooks[i]['currentlyHeldBy'].length}`;
@@ -442,7 +443,6 @@ removeBookButton.onclick = function() {
         booksRemoveList.appendChild(newOption);
         newOption.textContent = item.title;
     });
-    const removeAmountInput = document.getElementById('remove-amount');
     removeBookModal.style.display = 'block';
 };
 
@@ -483,4 +483,48 @@ submitRemoveBook.addEventListener('click', () => {
 });
 
 const cancelRemoveBook = document.getElementById('cancel-remove-book');
-cancelRemoveBook.addEventListener('click', () => removeBookModal.style.display = "none");
+cancelRemoveBook.addEventListener('click', () => removeBookModal.style.display = 'none');
+
+
+// RETURN MODAL
+const returnBookModal = document.getElementById('return-book-modal');
+const returnBookButton = document.getElementById('return-book-button');
+const closeReturnBookModal = document.querySelector('#return-book-modal .close');
+const bookToReturn = document.getElementById('book-return');
+const personReturningBook = document.getElementById('return-person');
+
+returnBookButton.onclick = function() {
+    const datalist = document.querySelector('#return-book-modal datalist');
+    datalist.innerHTML = '';
+    const allInputs = document.querySelectorAll('#return-book-modal input');
+    allInputs.forEach( (input) => {
+        input.value = '';
+        input.style.borderColor = '';
+    });
+    const booksReturnList = document.getElementById('books-return-list');
+    myLib.inventory.forEach( (item) => {
+        const newOption = document.createElement('option');
+        booksReturnList.appendChild(newOption);
+        newOption.textContent = item.title;
+    });
+    returnBookModal.style.display = 'block';
+};
+
+closeReturnBookModal.onclick = function() {
+    returnBookModal.style.display = 'none';
+}
+
+window.onclick = function(event) {
+    if (event.target === returnBookModal) {
+        returnBookModal.style.display = 'none';
+    }
+}
+
+const submitReturnBook = document.getElementById('submit-return-book');
+submitReturnBook.addEventListener('click', () => {
+    console.log('submitted');
+    returnBookModal.style.display = "none"
+});
+
+const cancelReturnBook = document.getElementById('cancel-return-book');
+cancelReturnBook.addEventListener('click', () => returnBookModal.style.display = 'none');

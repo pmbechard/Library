@@ -143,5 +143,33 @@
         </div>
     </div>
 
+    <div class="modal" id="return-book-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>Return Book</h2>
+            </div>
+            <form action="" method="">
+                <ul>
+                    <li>
+                        <label for="book-return">Please choose a book</label>
+                        <input type="text" list="books-return-list" name="book-return" id="book-return">
+                        <datalist id="books-return-list">
+
+                        </datalist>
+                    </li>
+                    <li>
+                        <label for="return-person">Please choose a borrower</label>
+                        <input type="text" name="return-person" id="return-person">
+                    </li>
+                </ul>
+                <div class="buttons">
+                    <div class="button" id="submit-return-book">Submit</div>
+                    <div class="button" id="cancel-return-book">Cancel</div>
+                </div>
+            </form>
+        </div>
+    </div>
+
 </body>
 </html>
