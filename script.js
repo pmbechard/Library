@@ -388,6 +388,16 @@ cancelSubmitExistingBook.addEventListener('click', () => addExistingBookModal.st
 const removeBookModal = document.getElementById('remove-book-modal');
 const removeBookButton = document.getElementById('remove-book-button');
 const closeRemoveBookModal = document.querySelector('#remove-book-modal .close');
+const bookToRemove = document.getElementById('book-remove');
+const amountToRemove = document.getElementById('remove-amount');
+
+bookToRemove.addEventListener('change', () => {
+    const matchFound = myLib.inventory.filter( (book) => book.title === bookToRemove.value);
+    if (matchFound) {
+        const maxLimit = matchFound[0].numInStock;
+        amountToRemove.setAttribute('max', maxLimit);
+    }
+});
 
 removeBookButton.onclick = function() {
     const datalist = document.querySelector('#remove-book-modal datalist');
@@ -419,8 +429,6 @@ window.onclick = function(event) {
 
 const submitRemoveBook = document.getElementById('submit-remove-book');
 submitRemoveBook.addEventListener('click', () => {
-    const bookToRemove = document.getElementById('book-remove');
-    const amountToRemove = document.getElementById('remove-amount');
     if (bookToRemove.value !== '' && amountToRemove.value !== '') {
         myLib.inventory.forEach( (item) => {
             if (item.title === bookToRemove.value) {
