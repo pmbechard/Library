@@ -5,7 +5,6 @@ by Peyton Bechard
 Last Updated: 24 Apr 2022
 
 To Do:
-    - Form validation for Add Existing modal
     - Add Return/Check out functionality
     - Add More Info icon to see total copies, who checked out ...
     - Add ability to edit
@@ -102,11 +101,11 @@ const myLib = new Library('Home Library');
 
 const book1 = new Book('Fluent Python', 'Luciano Ramalho', '2015', 'O\'Reilly', 6, myLib);
 const book2 = new Book('American Psycho', 'Bret Easton Ellis', '1991', 'Random House', 4, myLib);
-const book3 = new Book('Python Crash Course, 2nd Ed.', 'Eric Matthes', '2019', 'No Starch Press', 15, myLib);
-const book4 = new Book('Think Like a Programmer: An Introduction to Creative Problem Solving', 'Anton V. Spraul', '2012', 'No Starch Press', 8, myLib);
+const book3 = new Book('Python Crash Course', 'Eric Matthes', '2019', 'No Starch Press', 7, myLib);
+const book4 = new Book('Think Like a Programmer', 'Anton V. Spraul', '2012', 'No Starch Press', 8, myLib);
 const book5 = new Book('Cracking the Coding Interview', 'Gayle Laakmann McDowell', '2015', 'CareerCup', 3, myLib);
-const book6 = new Book('Design Patterns: Elements of Reusable Object-Oriented Software', 'Erich Gamma, Richard Helm, Ralph Johnson, and John Vlissides', '1994', 'Addison-Wesley', 5, myLib);
-const book7 = new Book('Charles Baudelaire: The Flowers of Evil 1868: A New Translation by John E. Tidball', 'John E. Tidball', '2018', 'Bishopston Editions', 3, myLib);
+const book6 = new Book('Design Patterns', 'Erich Gamma, Richard Helm, Ralph Johnson, and John Vlissides', '1994', 'Addison-Wesley', 5, myLib);
+const book7 = new Book('The Flowers of Evil 1868: A New Translation by John E. Tidball', 'Charles Baudelaire', '2018', 'Bishopston Editions', 3, myLib);
 const book8 = new Book('Glamorama', 'Bret Easton Ellis', '1998', 'Knopf', 4, myLib);
 const book9 = new Book('Trainspotting', 'Irvine Welsh', '1993', 'Secker & Warburg', 5, myLib);
 const book10 = new Book('The Corrections', 'Jonathon Franzen', '2001', 'Farrar, Straus and Giroux', 6, myLib);
@@ -353,8 +352,16 @@ cancelSubmitNew.addEventListener('click', () => addNewBookModal.style.display = 
 const addExistingBookModal = document.getElementById('add-existing-book-modal');
 const addExistingBookButton = document.getElementById('add-existing-book-button');
 const closeExistingBookModal = document.querySelector('#add-existing-book-modal .close');
+const bookToAdd = document.getElementById('book-select');
+const amountToAdd = document.getElementById('add-amount');
 
 addExistingBookButton.onclick = function() {
+    bookToAdd.style.borderColor = '';
+    amountToAdd.style.borderColor = '';
+    bookToAdd.addEventListener('keypress', () => bookToAdd.style.borderColor = 'blue');
+    bookToAdd.addEventListener('change', () => bookToAdd.style.borderColor = 'blue');
+    amountToAdd.addEventListener('keypress', () => amountToAdd.style.borderColor = 'blue');
+    amountToAdd.addEventListener('change', () => amountToAdd.style.borderColor = 'blue');
     const datalist = document.querySelector('#add-existing-book-modal datalist');
     datalist.innerHTML = '';
     const allInputs = document.querySelectorAll('#add-existing-book-modal input');
@@ -382,15 +389,23 @@ window.onclick = function(event) {
 
 const submitExistingBook = document.getElementById('submit-add-existing');
 submitExistingBook.addEventListener('click', () => {
-    const bookToAdd = document.getElementById('book-select');
-    const amountToAdd = document.getElementById('add-amount');
-    myLib.inventory.forEach( (item) => {
-        if (item.title === bookToAdd.value) {
-            item.numInStock = parseInt(item.numInStock) + parseInt(amountToAdd.value);
+    if (bookToAdd.value === '' || amountToAdd.value === '') {
+        if (bookToAdd.value === '') {
+            bookToAdd.style.borderColor = 'red';
         }
-        myLib.updateTable();
-        addExistingBookModal.style.display = 'none';
-    });
+        if (amountToAdd.value === '') {
+            amountToAdd.style.borderColor = 'red';
+        }
+    } else {
+        console.log('valid')
+        myLib.inventory.forEach( (item) => {
+            if (item.title === bookToAdd.value) {
+                item.numInStock = Number.parseInt(item.numInStock) + Number.parseInt(amountToAdd.value);
+            }
+            myLib.updateTable();
+            addExistingBookModal.style.display = 'none';
+        });
+    }
 });
 
 
