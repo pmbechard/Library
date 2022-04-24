@@ -7,7 +7,6 @@ Last Updated: 23 Apr 2022
 To Do:
     - Add Return/Check out functionality
     - Set max limit on removable # / delete item when 0
-    - In Stock should show '# out of #'
     - Add More Info icon to see total copies, who checked out ...
     - Add ability to edit
     - Expand information to include ISBN, date registered, previous checkout list, etc.
@@ -51,6 +50,9 @@ class Library {
                     } else if (key === 'currentlyHeldBy') {
                         const tableData = newRow.appendChild(document.createElement('td'));
                         tableData.innerHTML = '<img src="images/file_download_black_24dp.svg" alt="Return"><img src="images/logout_black_24dp.svg" alt="Check out">';            
+                    } else if (key === 'numInStock') {
+                        const tableData = newRow.appendChild(document.createElement('td'));
+                        tableData.textContent = `${uniqueBooks[i][key]} of ${Number.parseInt(uniqueBooks[i][key]) + uniqueBooks[i]['currentlyHeldBy'].length}`;
                     } else {
                         const tableData = newRow.appendChild(document.createElement('td'));
                         tableData.textContent = uniqueBooks[i][key];
