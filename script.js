@@ -307,6 +307,7 @@ addNewBookButton.onclick = function() {
     const submitFormInputs = document.querySelectorAll('.modal input');
     submitFormInputs.forEach(input => {
         input.value = '';
+        input.style.borderColor = '';
     });
     addNewBookModal.style.display = 'block';
 }
