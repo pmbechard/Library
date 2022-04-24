@@ -4,6 +4,8 @@ by Peyton Bechard
 
 Last Updated: 24 Apr 2022
 
+*** RETURN BOOK MODAL IS LEFT UNFINISHED ***
+
 To Do:
     - Add Return/Check out functionality
     - Add More Info icon to see total copies, who checked out ...
@@ -11,7 +13,6 @@ To Do:
     - Expand information to include ISBN, date registered, previous checkout list, etc.
     - Refactor repetition in table sorting methods
     - Fix border of sticky thead where you can see little black spots above the headings
-
 */
 
 class Library {
@@ -110,6 +111,9 @@ const book7 = new Book('The Flowers of Evil 1868: A New Translation by John E. T
 const book8 = new Book('Glamorama', 'Bret Easton Ellis', '1998', 'Knopf', 4, myLib);
 const book9 = new Book('Trainspotting', 'Irvine Welsh', '1993', 'Secker & Warburg', 5, myLib);
 const book10 = new Book('The Corrections', 'Jonathon Franzen', '2001', 'Farrar, Straus and Giroux', 6, myLib);
+
+book1.currentlyHeldBy.push('Peyton Bechard');
+book1.currentlyHeldBy.push('Allie Yang');
 
 
 // SEARCH BAR
@@ -486,7 +490,7 @@ const cancelRemoveBook = document.getElementById('cancel-remove-book');
 cancelRemoveBook.addEventListener('click', () => removeBookModal.style.display = 'none');
 
 
-// RETURN MODAL
+// RETURN BOOK MODAL
 const returnBookModal = document.getElementById('return-book-modal');
 const returnBookButton = document.getElementById('return-book-button');
 const closeReturnBookModal = document.querySelector('#return-book-modal .close');
@@ -506,9 +510,27 @@ returnBookButton.onclick = function() {
         const newOption = document.createElement('option');
         booksReturnList.appendChild(newOption);
         newOption.textContent = item.title;
-    });
+    });    
     returnBookModal.style.display = 'block';
 };
+
+bookToReturn.addEventListener('change', () => {
+    const matchedBook = myLib.inventory.filter( (book) => book.title === bookToReturn.value);
+    if (matchedBook) {
+        console.log(matchedBook);
+        personReturningBook.setAttribute('disabled', 'false');
+        const checkoutsList = document.getElementById('checked-out-list');
+        const people = matchedBook[0]['currentlyHeldBy'];
+        people.forEach( (person) => {
+            const newOption = document.createElement('option');
+            checkoutsList.appendChild(newOption);
+            newOption.textContent = person.title;
+        });
+    } else {
+        personReturningBook.setAttribute('disabled', 'true');
+    }
+
+});
 
 closeReturnBookModal.onclick = function() {
     returnBookModal.style.display = 'none';
@@ -522,8 +544,10 @@ window.onclick = function(event) {
 
 const submitReturnBook = document.getElementById('submit-return-book');
 submitReturnBook.addEventListener('click', () => {
-    console.log('submitted');
-    returnBookModal.style.display = "none"
+    if (bookToReturn.value === '' || personReturningBook.value === '') {
+
+    }
+    returnBookModal.style.display = 'none';
 });
 
 const cancelReturnBook = document.getElementById('cancel-return-book');
