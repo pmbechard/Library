@@ -2,12 +2,11 @@
 Library System
 by Peyton Bechard
 
-Last Updated: 23 Apr 2022
+Last Updated: 24 Apr 2022
 
 To Do:
     - Form validation for Add Existing modal
     - Add Return/Check out functionality
-    - Delete item when 0 in stock
     - Add More Info icon to see total copies, who checked out ...
     - Add ability to edit
     - Expand information to include ISBN, date registered, previous checkout list, etc.
@@ -65,7 +64,6 @@ class Library {
             }
         }
         this.inventory = this.inventory.filter( (book) => book.numInStock + book.currentlyHeldBy.length > 0);
-        console.log(this.inventory);
     }
 }
 
