@@ -441,9 +441,8 @@ submitRemoveBook.addEventListener('click', () => {
                 amountToRemove.style.borderColor = 'blue';
             });
         }
-
-
     }
-
-
 });
+
+const cancelRemoveBook = document.getElementById('cancel-remove-book');
+cancelRemoveBook.addEventListener('click', () => removeBookModal.style.display = "none");
