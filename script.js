@@ -5,8 +5,9 @@ by Peyton Bechard
 Last Updated: 23 Apr 2022
 
 To Do:
+    - Form validation for Add Existing modal
     - Add Return/Check out functionality
-    - Set max limit on removable # / delete item when 0
+    - Delete item when 0 in stock
     - Add More Info icon to see total copies, who checked out ...
     - Add ability to edit
     - Expand information to include ISBN, date registered, previous checkout list, etc.
@@ -40,6 +41,9 @@ class Library {
         const tbody = document.querySelector('tbody');
         tbody.innerHTML = '';
         for (let i = 0; i < uniqueBooks.length; i++) {
+            if (uniqueBooks[i].numInStock === 0 && uniqueBooks[i].currentlyHeldBy.length === 0) {
+                continue;
+            }
             const newRow = tbody.appendChild(document.createElement('tr'));
             for (let key in uniqueBooks[i]) {
                 if (key !== 'belongsTo') {
@@ -60,6 +64,8 @@ class Library {
                 }
             }
         }
+        this.inventory = this.inventory.filter( (book) => book.numInStock + book.currentlyHeldBy.length > 0);
+        console.log(this.inventory);
     }
 }
 
