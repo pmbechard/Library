@@ -420,11 +420,30 @@ const submitRemoveBook = document.getElementById('submit-remove-book');
 submitRemoveBook.addEventListener('click', () => {
     const bookToRemove = document.getElementById('book-remove');
     const amountToRemove = document.getElementById('remove-amount');
-    myLib.inventory.forEach( (item) => {
-        if (item.title === bookToRemove.value) {
-            item.numInStock = parseInt(item.numInStock) - parseInt(amountToRemove.value);
+    if (bookToRemove.value !== '' && amountToRemove.value !== '') {
+        myLib.inventory.forEach( (item) => {
+            if (item.title === bookToRemove.value) {
+                item.numInStock = parseInt(item.numInStock) - parseInt(amountToRemove.value);
+            }
+            myLib.updateTable();
+            removeBookModal.style.display = 'none';
+        });
+    } else {
+        if (bookToRemove.value === '') {
+            bookToRemove.style.borderColor = 'red';
+            bookToRemove.addEventListener('keypress', () => {
+                bookToRemove.style.borderColor = 'blue';
+            });
         }
-        myLib.updateTable();
-        removeBookModal.style.display = 'none';
-    });
+        if (amountToRemove.value === '') {
+            amountToRemove.style.borderColor = 'red';
+            amountToRemove.addEventListener('keypress', () => {
+                amountToRemove.style.borderColor = 'blue';
+            });
+        }
+
+
+    }
+
+
 });
