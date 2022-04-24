@@ -395,6 +395,7 @@ removeBookButton.onclick = function() {
     const allInputs = document.querySelectorAll('#remove-book-modal input');
     allInputs.forEach( (input) => {
         input.value = '';
+        input.style.borderColor = '';
     });
     const booksRemoveList = document.getElementById('books-remove-list');
     myLib.inventory.forEach( (item) => {
