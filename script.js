@@ -14,6 +14,9 @@ To Do:
     - Refactor repetition in table sorting methods
     - Fix border of sticky thead where you can see little black spots above the headings
     - Standardize modal sections
+    - List and sort authors by surname
+    - Adjust table column widths to better match contents
+    - Add more specific error messages in modals (i.e. not just red borders)
 */
 
 class Library {
@@ -101,6 +104,10 @@ const book9 = new Book('Trainspotting', 'Irvine Welsh', '1993', 'Secker & Warbur
 const book10 = new Book('The Corrections', 'Jonathon Franzen', '2001', 'Farrar, Straus and Giroux', 6, myLib);
 book1.currentlyHeldBy.push('Peyton Bechard');
 book1.currentlyHeldBy.push('Allie Yang');
+book1.currentlyHeldBy.push('Peyton Yang');
+book1.currentlyHeldBy.push('Allie Bechard');
+book1.currentlyHeldBy.push('John Doe');
+book1.currentlyHeldBy.push('Jane Doe');
 myLib.updateTable();
 
 
@@ -579,7 +586,15 @@ checkOutBookButton.onclick = function() {
     checkOutBookModal.style.display = 'block';
 };
 
-//
+bookToCheckOut.addEventListener('change', () => {
+    const matchedBook = myLib.inventory.filter( (book) => book.title === bookToCheckOut.value);
+    const matchBookQuantity = matchedBook.length > 0 ? Number.parseInt(matchedBook[0].numInStock) - matchedBook[0].currentlyHeldBy.length : 0;
+    if (matchBookQuantity > 0) {
+        personCheckingOutBook.removeAttribute('disabled');
+    } else {
+        personCheckingOutBook.setAttribute('disabled', 'true');
+    }
+});
 
 closeCheckOutBookModal.onclick = function() {
     checkOutBookModal.style.display = 'none';
@@ -591,7 +606,26 @@ window.onclick = function(event) {
     }
 }
 
-//
+const submitCheckOutBook = document.getElementById('submit-checkout-book');
+submitCheckOutBook.addEventListener('click', () => {
+    const matchedBook = myLib.inventory.filter( (book) => book.title === bookToCheckOut.value);
+
+    if (bookToCheckOut.value === '' || personCheckingOutBook.value === '' || matchedBook.length === 0) {
+        if (bookToCheckOut.value === '' || matchedBook.length === 0) {
+            bookToCheckOut.style.borderColor = 'red';
+            bookToCheckOut.addEventListener('keypress', () => bookToCheckOut.style.borderColor = 'blue');
+            bookToCheckOut.addEventListener('change', () => bookToCheckOut.style.borderColor = 'blue');
+        } else {
+            personCheckingOutBook.style.borderColor = 'red';
+            personCheckingOutBook.addEventListener('keypress', () => personCheckingOutBook.style.borderColor = 'blue');
+            personCheckingOutBook.addEventListener('change', () => personCheckingOutBook.style.borderColor = 'blue');
+        }
+    } else {
+        checkOutBookModal.style.display = 'none';
+        matchedBook[0].currentlyHeldBy.push(personCheckingOutBook.value);
+        myLib.updateTable();
+    }
+});
 
 const cancelCheckOutBook = document.getElementById('cancel-checkout-book');
 cancelCheckOutBook.addEventListener('click', () => checkOutBookModal.style.display = 'none');
