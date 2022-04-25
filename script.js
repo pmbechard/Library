@@ -49,11 +49,10 @@ class Library {
                 if (key !== 'belongsTo') {
                     if (key === 'title') {
                         const tableData = newRow.appendChild(document.createElement('td'));
-                        // tableData.innerHTML = '<img src="images/info_black_24dp.svg" alt="More info"></img>'
                         tableData.textContent = uniqueBooks[i][key];
                     } else if (key === 'currentlyHeldBy') {
                         const tableData = newRow.appendChild(document.createElement('td'));
-                        tableData.innerHTML = '<img src="images/file_download_black_24dp.svg" alt="Return" id="return-book-button"><img src="images/logout_black_24dp.svg" alt="Check out" id="checkout-book-button">';            
+                        tableData.innerHTML = '<img src="images/info_black_24dp.svg" alt="More info"></img>';          
                     } else if (key === 'numInStock') {
                         const tableData = newRow.appendChild(document.createElement('td'));
                         tableData.textContent = `${uniqueBooks[i][key]} of ${Number.parseInt(uniqueBooks[i][key]) + uniqueBooks[i]['currentlyHeldBy'].length}`;
@@ -517,8 +516,9 @@ returnBookButton.onclick = function() {
 bookToReturn.addEventListener('change', () => {
     const matchedBook = myLib.inventory.filter( (book) => book.title === bookToReturn.value);
     if (matchedBook) {
-        console.log(matchedBook);
+        console.log(personReturningBook.getAttribute('disabled'));
         personReturningBook.setAttribute('disabled', 'false');
+        console.log(personReturningBook.getAttribute('disabled'));
         const checkoutsList = document.getElementById('checked-out-list');
         const people = matchedBook[0]['currentlyHeldBy'];
         people.forEach( (person) => {
