@@ -55,7 +55,7 @@ class Library {
                         tableData.innerHTML = '<img src="images/info_black_24dp.svg" alt="More info"></img>';          
                     } else if (key === 'numInStock') {
                         const tableData = newRow.appendChild(document.createElement('td'));
-                        tableData.textContent = `${uniqueBooks[i][key]} of ${Number.parseInt(uniqueBooks[i][key]) + uniqueBooks[i]['currentlyHeldBy'].length}`;
+                        tableData.textContent = `${Number.parseInt(uniqueBooks[i][key]) - uniqueBooks[i]['currentlyHeldBy'].length} of ${Number.parseInt(uniqueBooks[i][key])}`;
                     } else {
                         const tableData = newRow.appendChild(document.createElement('td'));
                         tableData.textContent = uniqueBooks[i][key];
@@ -82,18 +82,6 @@ class Book {
     toString() {
         return `${this.title} by ${this.name} (${this.publisher} ${this.year})\n\t${this.numInStock} in stock.`;
     }
-
-    checkOut(name) {
-        if (this.numInStock !== 0) {
-            numInStock -= 1;
-            this.currentlyHeldBy.push(name);
-        }
-    }
-
-    checkIn(name) {
-        numInStock += 1;
-        this.currentlyHeldBy = this.currentlyHeldBy.splice(0, this.currentlyHeldBy.indexOf(name)) + this.currentlyHeldBy.splice(this.currentlyHeldBy.indexOf(name)+1);
-    }
 }
 
 
@@ -110,9 +98,9 @@ const book7 = new Book('The Flowers of Evil 1868: A New Translation by John E. T
 const book8 = new Book('Glamorama', 'Bret Easton Ellis', '1998', 'Knopf', 4, myLib);
 const book9 = new Book('Trainspotting', 'Irvine Welsh', '1993', 'Secker & Warburg', 5, myLib);
 const book10 = new Book('The Corrections', 'Jonathon Franzen', '2001', 'Farrar, Straus and Giroux', 6, myLib);
-
 book1.currentlyHeldBy.push('Peyton Bechard');
 book1.currentlyHeldBy.push('Allie Yang');
+myLib.updateTable();
 
 
 // SEARCH BAR
@@ -514,18 +502,19 @@ returnBookButton.onclick = function() {
 };
 
 bookToReturn.addEventListener('change', () => {
+    const checkoutsList = document.getElementById('checked-out-list');
+    checkoutsList.innerHTML = '';
     const matchedBook = myLib.inventory.filter( (book) => book.title === bookToReturn.value);
     if (matchedBook.length === 1 && matchedBook[0].currentlyHeldBy.length > 0) {
         personReturningBook.removeAttribute('disabled');
-        const checkoutsList = document.getElementById('checked-out-list');
         const people = matchedBook[0].currentlyHeldBy;
-        console.log(checkoutsList)
-        console.log(matchedBook[0].currentlyHeldBy)
         people.forEach( (person) => {
             const newOption = document.createElement('option');
             checkoutsList.appendChild(newOption);
             newOption.textContent = person;
         });
+    } else {
+        personReturningBook.setAttribute('disabled', 'true');
     }
 });
 
@@ -541,10 +530,23 @@ window.onclick = function(event) {
 
 const submitReturnBook = document.getElementById('submit-return-book');
 submitReturnBook.addEventListener('click', () => {
-    if (bookToReturn.value === '' || personReturningBook.value === '') {
-
+    const matchedBook = myLib.inventory.filter( (book) => book.title === bookToReturn.value);
+    const matchedPerson = matchedBook.length > 0 ? matchedBook[0].currentlyHeldBy.filter( (person) => person === personReturningBook.value) : null;
+    if (bookToReturn.value === '' || personReturningBook.value === '' || matchedBook.length === 0 || !matchedPerson[0]) {
+        if (bookToReturn.value === '' || matchedBook.length === 0) {
+            bookToReturn.style.borderColor = 'red';
+            bookToReturn.addEventListener('keypress', () => bookToReturn.style.borderColor = 'blue');
+            bookToReturn.addEventListener('change', () => bookToReturn.style.borderColor = 'blue');
+        } else {
+            personReturningBook.style.borderColor = 'red';
+            personReturningBook.addEventListener('keypress', () => personReturningBook.style.borderColor = 'blue');
+            personReturningBook.addEventListener('change', () => personReturningBook.style.borderColor = 'blue');
+        }
+    } else {
+        matchedBook[0].currentlyHeldBy.splice(matchedBook[0].currentlyHeldBy.indexOf(matchedPerson[0]), 1);
+        returnBookModal.style.display = 'none';
+        myLib.updateTable();
     }
-    returnBookModal.style.display = 'none';
 });
 
 const cancelReturnBook = document.getElementById('cancel-return-book');
