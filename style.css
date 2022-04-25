@@ -229,7 +229,8 @@ th img {
 
 #add-existing-book-modal .modal-content li,
 #remove-book-modal .modal-content li,
-#return-book-modal .modal-content li {
+#return-book-modal .modal-content li,
+#checkout-book-modal .modal-content li {
     list-style: none;
     padding: 10px;
     text-align: center;
@@ -242,7 +243,8 @@ th img {
 
 #add-existing-book-modal .modal-content form label,
 #remove-book-modal .modal-content form label,
-#return-book-modal .modal-content li {
+#return-book-modal .modal-content li,
+#checkout-book-modal .modal-content li {
     min-width: 200px;
 }
 

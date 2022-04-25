@@ -22,7 +22,7 @@
             </div>
             <div class="add-remove-buttons">
                 <button id="return-book-button">Return</button>
-                <button id="checkout-book-button">Checkout</button>  
+                <button id="checkout-book-button">Check Out</button>  
                 <button id="add-new-book-button">Add New</button>
                 <button id="add-existing-book-button">Add Existing</button>
                 <button id="remove-book-button">Remove</button>
@@ -82,7 +82,7 @@
                     </li>
                 </ul>
                 <div class="buttons">
-                    <div class="button" id="submit-new">Submit</div>
+                    <div class="button" id="submit-new">Add</div>
                     <div class="button" id="cancel-submit-new">Cancel</div>
                 </div>
             </form>
@@ -110,7 +110,7 @@
                     </li>
                 </ul>
                 <div class="buttons">
-                    <div class="button" id="submit-add-existing">Submit</div>
+                    <div class="button" id="submit-add-existing">Add</div>
                     <div class="button" id="cancel-add-existing">Cancel</div>
                 </div>
             </form>
@@ -138,7 +138,7 @@
                     </li>
                 </ul>
                 <div class="buttons">
-                    <div class="button" id="submit-remove-book">Submit</div>
+                    <div class="button" id="submit-remove-book">Remove</div>
                     <div class="button" id="cancel-remove-book">Cancel</div>
                 </div>
             </form>
@@ -169,8 +169,36 @@
                     </li>
                 </ul>
                 <div class="buttons">
-                    <div class="button" id="submit-return-book">Submit</div>
+                    <div class="button" id="submit-return-book">Return</div>
                     <div class="button" id="cancel-return-book">Cancel</div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="checkout-book-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>Check Out Book</h2>
+            </div>
+            <form action="" method="">
+                <ul>
+                    <li>
+                        <label for="book-checkout">Please choose a book</label>
+                        <input type="text" list="books-return-list" name="book-checkout" id="book-checkout">
+                        <datalist id="books-checkout-list">
+
+                        </datalist>
+                    </li>
+                    <li>
+                        <label for="checkout-person">Name of borrower</label>
+                        <input type="text" name="checkout-person" id="checkout-person" disabled="true">
+                    </li>
+                </ul>
+                <div class="buttons">
+                    <div class="button" id="submit-checkout-book">Check Out</div>
+                    <div class="button" id="cancel-checkout-book">Cancel</div>
                 </div>
             </form>
         </div>

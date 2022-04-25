@@ -13,6 +13,7 @@ To Do:
     - Expand information to include ISBN, date registered, previous checkout list, etc.
     - Refactor repetition in table sorting methods
     - Fix border of sticky thead where you can see little black spots above the headings
+    - Standardize modal sections
 */
 
 class Library {
@@ -551,3 +552,46 @@ submitReturnBook.addEventListener('click', () => {
 
 const cancelReturnBook = document.getElementById('cancel-return-book');
 cancelReturnBook.addEventListener('click', () => returnBookModal.style.display = 'none');
+
+
+// CHECKOUT BOOK MODAL
+const checkOutBookModal = document.getElementById('checkout-book-modal');
+const checkOutBookButton = document.getElementById('checkout-book-button');
+const closeCheckOutBookModal = document.querySelector('#checkout-book-modal .close');
+const bookToCheckOut = document.getElementById('book-checkout');
+const personCheckingOutBook = document.getElementById('checkout-person');
+
+
+checkOutBookButton.onclick = function() {
+    const datalist = document.querySelector('#checkout-book-modal datalist');
+    datalist.innerHTML = '';
+    const allInputs = document.querySelectorAll('#checkout-book-modal input');
+    allInputs.forEach( (input) => {
+        input.value = '';
+        input.style.borderColor = '';
+    });
+    const booksCheckoutList = document.getElementById('books-checkout-list');
+    myLib.inventory.forEach( (item) => {
+        const newOption = document.createElement('option');
+        booksCheckoutList.appendChild(newOption);
+        newOption.textContent = item.title;
+    });    
+    checkOutBookModal.style.display = 'block';
+};
+
+//
+
+closeCheckOutBookModal.onclick = function() {
+    checkOutBookModal.style.display = 'none';
+}
+
+window.onclick = function(event) {
+    if (event.target === checkOutBookModal) {
+        checkOutBookModal.style.display = 'none';
+    }
+}
+
+//
+
+const cancelCheckOutBook = document.getElementById('cancel-checkout-book');
+cancelCheckOutBook.addEventListener('click', () => checkOutBookModal.style.display = 'none');
