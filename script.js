@@ -7,7 +7,6 @@ Last Updated: 25 Apr 2022
 
 
 To Do:
-    - Add Check out functionality
     - Add functionality to More Info icon to see total copies, who checked out ...
     - Add ability to edit
     - Expand information to include ISBN, date registered, previous checkout list, etc.
