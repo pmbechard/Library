@@ -515,21 +515,18 @@ returnBookButton.onclick = function() {
 
 bookToReturn.addEventListener('change', () => {
     const matchedBook = myLib.inventory.filter( (book) => book.title === bookToReturn.value);
-    if (matchedBook) {
-        console.log(personReturningBook.getAttribute('disabled'));
-        personReturningBook.setAttribute('disabled', 'false');
-        console.log(personReturningBook.getAttribute('disabled'));
+    if (matchedBook.length === 1 && matchedBook[0].currentlyHeldBy.length > 0) {
+        personReturningBook.removeAttribute('disabled');
         const checkoutsList = document.getElementById('checked-out-list');
-        const people = matchedBook[0]['currentlyHeldBy'];
+        const people = matchedBook[0].currentlyHeldBy;
+        console.log(checkoutsList)
+        console.log(matchedBook[0].currentlyHeldBy)
         people.forEach( (person) => {
             const newOption = document.createElement('option');
             checkoutsList.appendChild(newOption);
-            newOption.textContent = person.title;
+            newOption.textContent = person;
         });
-    } else {
-        personReturningBook.setAttribute('disabled', 'true');
     }
-
 });
 
 closeReturnBookModal.onclick = function() {
