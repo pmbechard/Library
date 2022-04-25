@@ -9,7 +9,7 @@ Last Updated: 25 Apr 2022
 To Do:
     - Add functionality to More Info icon to see total copies, who checked out ...
     - Add ability to edit
-    - Expand information to include ISBN, date registered, previous checkout list, etc.
+    - Expand information to include ISBN, date registered, previous checkout list, page numbers, etc.
     - Refactor repetition in table sorting methods
     - Fix border of sticky thead where you can see little black spots above the headings
     - Standardize modal sections
@@ -107,6 +107,8 @@ book1.currentlyHeldBy.push('Peyton Yang');
 book1.currentlyHeldBy.push('Allie Bechard');
 book1.currentlyHeldBy.push('John Doe');
 book1.currentlyHeldBy.push('Jane Doe');
+book2.currentlyHeldBy.push('John Doe');
+book2.currentlyHeldBy.push('Jane Doe');
 myLib.updateTable();
 
 
