@@ -506,7 +506,8 @@ returnBookButton.onclick = function() {
         const newOption = document.createElement('option');
         booksReturnList.appendChild(newOption);
         newOption.textContent = item.title;
-    });    
+    });
+    personReturningBook.setAttribute('disabled', 'true');
     returnBookModal.style.display = 'block';
 };
 
@@ -583,7 +584,8 @@ checkOutBookButton.onclick = function() {
         const newOption = document.createElement('option');
         booksCheckoutList.appendChild(newOption);
         newOption.textContent = item.title;
-    });    
+    });
+    personCheckingOutBook.setAttribute('disabled', 'true');
     checkOutBookModal.style.display = 'block';
 };
 
