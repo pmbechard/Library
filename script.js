@@ -3,11 +3,10 @@ Library System
 by Peyton Bechard
 
 
-Last Updated: 25 Apr 2022
+Last Updated: 26 Apr 2022
 
 
 To Do:
-    - Add functionality to More Info icon to see total copies, who checked out ...
     - Add ability to edit
     - Expand information to include ISBN, date registered, previous checkout list, page numbers, etc.
     - Refactor repetition in table sorting methods
@@ -16,6 +15,8 @@ To Do:
     - List and sort authors by surname
     - Adjust table column widths to better match contents
     - Add more specific error messages in modals (i.e. not just red borders)
+    - Disallow duplicates to be added
+    - Make responsive
 */
 
 class Library {
@@ -67,6 +68,39 @@ class Library {
             }
         }
         this.inventory = this.inventory.filter( (book) => book.numInStock + book.currentlyHeldBy.length > 0);
+        // MORE INFO MODAL
+        const moreInfoButton = document.querySelectorAll('td > img');
+        const moreInfoBookModal = document.getElementById('moreinfo-book-modal');
+        const closeMoreInfoBookModal = document.querySelector('#moreinfo-book-modal .close');
+        const nameList = document.getElementById('held-by');
+        let moreInfoBook;
+
+        moreInfoButton.forEach( (button) => button.addEventListener('click', () => {
+            nameList.innerHTML = '';
+            const bookTitle = button.parentElement.parentElement.firstChild.textContent;
+            myLib.inventory.forEach( (book) => {
+                if (book.title === bookTitle) {
+                    moreInfoBook = book;
+                }
+            });
+            moreInfoBook.currentlyHeldBy.forEach( (person) => {
+                const nameListElement = document.createElement('li');
+                nameList.appendChild(nameListElement);
+                nameListElement.textContent = person;
+
+            })
+            moreInfoBookModal.style.display = 'block';
+        }));
+
+        closeMoreInfoBookModal.onclick = function() {
+            moreInfoBookModal.style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            if (event.target === moreInfoBookModal) {
+                moreInfoBookModal.style.display = 'none';
+            }
+        }
     }
 }
 

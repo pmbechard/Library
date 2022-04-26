@@ -293,3 +293,8 @@ th img {
     text-decoration: none;
     cursor: pointer;
 }
+
+#held-by {
+    height: 30vh;
+    overflow: scroll;
+}
