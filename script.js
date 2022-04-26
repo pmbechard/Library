@@ -135,10 +135,10 @@ const book7 = new Book('The Flowers of Evil 1868: A New Translation by John E. T
 const book8 = new Book('Glamorama', 'Bret Easton Ellis', '1998', 'Knopf', 4, myLib);
 const book9 = new Book('Trainspotting', 'Irvine Welsh', '1993', 'Secker & Warburg', 5, myLib);
 const book10 = new Book('The Corrections', 'Jonathon Franzen', '2001', 'Farrar, Straus and Giroux', 6, myLib);
-book1.currentlyHeldBy.push('Peyton Bechard');
-book1.currentlyHeldBy.push('Allie Yang');
-book1.currentlyHeldBy.push('Peyton Yang');
-book1.currentlyHeldBy.push('Allie Bechard');
+book1.currentlyHeldBy.push('Rick Roll');
+book1.currentlyHeldBy.push('Jonathon Smith');
+book1.currentlyHeldBy.push('Cindy Lou-Who');
+book1.currentlyHeldBy.push('Fred Flinstone');
 book1.currentlyHeldBy.push('John Doe');
 book1.currentlyHeldBy.push('Jane Doe');
 book2.currentlyHeldBy.push('John Doe');
