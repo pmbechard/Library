@@ -1,4 +1,4 @@
-class Book {
+export class Book {
   constructor(title, author, year, publisher, numInStock, belongsTo) {
     this.title = title;
     this.author = author;

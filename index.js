@@ -6,7 +6,7 @@ by Peyton Bechard
 Last Updated: 19 Sep 2022
 
 
-To Do:
+TODO:
     - Add ability to edit
     - Expand information to include ISBN, date registered, previous checkout list, page numbers, etc.
     - Refactor repetition in table sorting methods
@@ -18,3 +18,13 @@ To Do:
     - Disallow duplicates to be added
     - Make responsive
 */
+
+import { getHeader } from './components/Header';
+import { getMainContent } from './components/MainContent';
+import { getFooter } from './components/Footer';
+
+getHeader();
+getMainContent();
+getFooter();
+
+// FIXME:

@@ -1,4 +1,4 @@
-class Library {
+export class Library {
   constructor(libraryName) {
     this.libraryName = libraryName;
     this.inventory = [];
