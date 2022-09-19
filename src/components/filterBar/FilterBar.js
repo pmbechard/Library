@@ -1,4 +1,4 @@
-import searchIcon from '../images/search.svg';
+import searchIcon from '../../images/search.svg';
 
 import { getSearchBar } from './functions/SearchBar';
 import { addExistingBook } from './functions/AddExistingBook';
@@ -17,7 +17,7 @@ export function getFilterBar(sectionContainer) {
   container.appendChild(searchArea);
 
   const searchLabel = document.createElement('label');
-  bookSearch.for = 'book-search';
+  searchLabel.for = 'book-search';
   searchArea.appendChild(searchLabel);
 
   const searchImg = document.createElement('img');
@@ -59,9 +59,10 @@ export function getFilterBar(sectionContainer) {
   removeButton.textContent = 'Remove';
   buttonsArea.appendChild(removeButton);
 
-  checkoutBook();
-  returnBook();
-  addNewBook();
-  addExistingBook();
-  removeBook();
+  // TODO:
+  // checkoutBook();
+  // returnBook();
+  // addNewBook();
+  // addExistingBook();
+  // removeBook();
 }

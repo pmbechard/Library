@@ -22,9 +22,12 @@ TODO:
 import { getHeader } from './components/Header';
 import { getMainContent } from './components/MainContent';
 import { getFooter } from './components/Footer';
+import { getModals } from './components/modals/Modals';
+
+import './styles.css';
 
 getHeader();
 getMainContent();
 getFooter();
-
 // FIXME:
+getModals();

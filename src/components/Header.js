@@ -3,7 +3,7 @@ import logo from '../images/logo.svg';
 export function getHeader() {
   const container = document.createElement('header');
   container.classList.add('header');
-  document.appendChild(container);
+  document.body.appendChild(container);
 
   const headerLogo = document.createElement('img');
   headerLogo.src = logo;
