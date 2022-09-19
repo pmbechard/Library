@@ -6,8 +6,6 @@ export class Book {
     this.publisher = publisher;
     this.numInStock = numInStock;
     this.currentlyHeldBy = [];
-    this.belongsTo = belongsTo;
-    this.belongsTo.addToInventory(this);
   }
 
   toString() {

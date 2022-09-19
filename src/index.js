@@ -41,6 +41,8 @@ import {
   serverTimestamp,
 } from 'firebase/firestore';
 
+import { newBookModal } from './components/filterBar/functions/AddNewBook';
+
 getHeader();
 getMainContent();
 getFooter();
@@ -49,12 +51,7 @@ getModals();
 
 const addNewBtn = document.getElementById('add-new-book-button');
 addNewBtn.addEventListener('click', () => {
-  const submitFormInputs = document.querySelectorAll('.modal input');
-  submitFormInputs.forEach((input) => {
-    input.value = '';
-    input.style.borderColor = '';
-  });
-  addNewBookModal.style.display = 'block';
+  newBookModal(addNewBook);
 });
 
 async function addNewBook(bookObj) {

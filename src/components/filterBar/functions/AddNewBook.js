@@ -1,29 +1,26 @@
-// ADD NEW BOOK MODAL
-export function addNewBook() {
+import { Book } from '../../classes/Book';
+
+export function newBookModal(addNewBook) {
   const addNewBookModal = document.getElementById('add-new-book-modal');
-  const addNewBookButton = document.getElementById('add-new-book-button');
   const closeNewBookModal = document.querySelector(
     '#add-new-book-modal .close'
   );
 
-  addNewBookButton.onclick = function () {
-    const submitFormInputs = document.querySelectorAll('.modal input');
-    submitFormInputs.forEach((input) => {
-      input.value = '';
-      input.style.borderColor = '';
-    });
-    addNewBookModal.style.display = 'block';
-  };
+  const submitFormInputs = document.querySelectorAll('.modal input');
+  submitFormInputs.forEach((input) => {
+    input.value = '';
+    input.style.borderColor = '';
+  });
+  addNewBookModal.style.display = 'block';
 
-  closeNewBookModal.onclick = function () {
+  closeNewBookModal.addEventListener('click', () => {
     addNewBookModal.style.display = 'none';
-  };
+  });
 
-  window.onclick = function (event) {
-    if (event.target === addNewBookModal) {
+  window.addEventListener('click', (event) => {
+    if (event.target === addNewBookModal)
       addNewBookModal.style.display = 'none';
-    }
-  };
+  });
 
   const submitNewBook = document.getElementById('submit-new');
   submitNewBook.addEventListener('click', () => {
@@ -44,8 +41,9 @@ export function addNewBook() {
       const year = document.getElementById('year').value;
       const publisher = document.getElementById('publisher').value;
       const quantity = document.getElementById('quantity').value;
-      const book = new Book(title, author, year, publisher, quantity, myLib);
+      const book = new Book(title, author, year, publisher, quantity);
       addNewBookModal.style.display = 'none';
+      addNewBook(book);
     }
   });
 
