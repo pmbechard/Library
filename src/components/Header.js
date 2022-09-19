@@ -1,4 +1,4 @@
-import logo from '../images/logo.svg';
+import logo from '../img/logo.svg';
 
 export function getHeader() {
   const container = document.createElement('header');

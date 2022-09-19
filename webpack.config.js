@@ -13,7 +13,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
   },
   plugins: [
-    new FaviconsWebpackPlugin(),
+    new FaviconsWebpackPlugin('./logo.svg'),
     new HtmlWebpackPlugin({ title: 'Online Library System' }),
   ],
   module: {

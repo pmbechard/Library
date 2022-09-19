@@ -1,4 +1,4 @@
-import downArrowIcon from '../../images/down-arrow.svg';
+import downArrowIcon from '../../img/down-arrow.svg';
 
 export function getBookList(sectionContainer) {
   const container = document.createElement('div');
