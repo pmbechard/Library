@@ -32,6 +32,7 @@ import {
   getFirestore,
   collection,
   addDoc,
+  getDocs,
   query,
   orderBy,
   onSnapshot,
@@ -42,6 +43,7 @@ import {
 } from 'firebase/firestore';
 
 import { newBookModal } from './components/filterBar/functions/AddNewBook';
+import infoIcon from './img/info.svg';
 
 getHeader();
 getMainContent();
@@ -62,31 +64,37 @@ async function addNewBook(bookObj) {
   }
 }
 
-// function loadBooks() {
-//   const booksQuery = query(
-//     collection(getFirestore(), 'books'),
-//     orderBy('title', 'asc')
-//   );
+async function getBooks(db) {
+  const booksCol = collection(db, 'books');
+  const booksSnapshot = await getDocs(booksCol);
+  const booksList = booksSnapshot.docs.map((doc) => doc.data());
+  console.log(booksList);
 
-//   onSnapshot(booksQuery, function (snapshot) {
-//     snapshot.docChanges().forEach(function (change) {
-//       if (change.type === 'removed') {
-//         deleteBook(change.doc.id);
-//       } else {
-//         var book = change.doc.data();
-//         displayBook(
-//           change.doc.id,
-//           title,
-//           book.author,
-//           book.year,
-//           book.publisher,
-//           book.numInStock,
-//           book.currentlyHeldBy
-//         );
-//       }
-//     });
-//   });
-// }
+  const tbody = document.querySelector('tbody');
+  booksList.forEach((book) => {
+    const newRow = tbody.appendChild(document.createElement('tr'));
+    const title = newRow.appendChild(document.createElement('td'));
+    title.textContent = book.title;
+    const author = newRow.appendChild(document.createElement('td'));
+    author.textContent = book.author;
+    const year = newRow.appendChild(document.createElement('td'));
+    year.textContent = book.year;
+    const publisher = newRow.appendChild(document.createElement('td'));
+    publisher.textContent = book.publisher;
+    const numInStock = newRow.appendChild(document.createElement('td'));
+    numInStock.textContent = `${
+      Number.parseInt(book.numInStock) - book.currentlyHeldBy.length
+    } of ${Number.parseInt(book.numInStock)}`;
+    const moreInfo = newRow.appendChild(document.createElement('td'));
+    const infoImg = document.createElement('img');
+    infoImg.src = infoIcon;
+    moreInfo.appendChild(infoImg);
+  });
+  return booksList;
+}
 
 const firebaseAppConfig = getFirebaseConfig();
-initializeApp(firebaseAppConfig);
+const app = initializeApp(firebaseAppConfig);
+const db = getFirestore(app);
+
+getBooks(db);
