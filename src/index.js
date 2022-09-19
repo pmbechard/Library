@@ -64,37 +64,53 @@ async function addNewBook(bookObj) {
   }
 }
 
-async function getBooks(db) {
+async function loadBooks(db) {
   const booksCol = collection(db, 'books');
-  const booksSnapshot = await getDocs(booksCol);
-  const booksList = booksSnapshot.docs.map((doc) => doc.data());
-  console.log(booksList);
-
-  const tbody = document.querySelector('tbody');
-  booksList.forEach((book) => {
-    const newRow = tbody.appendChild(document.createElement('tr'));
-    const title = newRow.appendChild(document.createElement('td'));
-    title.textContent = book.title;
-    const author = newRow.appendChild(document.createElement('td'));
-    author.textContent = book.author;
-    const year = newRow.appendChild(document.createElement('td'));
-    year.textContent = book.year;
-    const publisher = newRow.appendChild(document.createElement('td'));
-    publisher.textContent = book.publisher;
-    const numInStock = newRow.appendChild(document.createElement('td'));
-    numInStock.textContent = `${
-      Number.parseInt(book.numInStock) - book.currentlyHeldBy.length
-    } of ${Number.parseInt(book.numInStock)}`;
-    const moreInfo = newRow.appendChild(document.createElement('td'));
-    const infoImg = document.createElement('img');
-    infoImg.src = infoIcon;
-    moreInfo.appendChild(infoImg);
+  onSnapshot(booksCol, function (snapshot) {
+    snapshot.docChanges().forEach(function (change) {
+      if (change.type === 'removed') {
+        deleteBook(change.doc.id);
+      } else {
+        var book = change.doc.data();
+        displayBook({
+          id: change.doc.id,
+          title: book.title,
+          author: book.author,
+          year: book.year,
+          publisher: book.publisher,
+          currentlyHeldBy: book.currentlyHeldBy,
+          numInStock: book.numInStock,
+        });
+      }
+    });
   });
-  return booksList;
 }
+
+function displayBook({ ...book }) {
+  const tbody = document.querySelector('tbody');
+  const newRow = tbody.appendChild(document.createElement('tr'));
+  const title = newRow.appendChild(document.createElement('td'));
+  title.textContent = book.title;
+  const author = newRow.appendChild(document.createElement('td'));
+  author.textContent = book.author;
+  const year = newRow.appendChild(document.createElement('td'));
+  year.textContent = book.year;
+  const publisher = newRow.appendChild(document.createElement('td'));
+  publisher.textContent = book.publisher;
+  const numInStock = newRow.appendChild(document.createElement('td'));
+  numInStock.textContent = `${
+    Number.parseInt(book.numInStock) - book.currentlyHeldBy.length
+  } of ${Number.parseInt(book.numInStock)}`;
+  const moreInfo = newRow.appendChild(document.createElement('td'));
+  const infoImg = document.createElement('img');
+  infoImg.src = infoIcon;
+  moreInfo.appendChild(infoImg);
+}
+
+function deleteBook(id) {}
 
 const firebaseAppConfig = getFirebaseConfig();
 const app = initializeApp(firebaseAppConfig);
 const db = getFirestore(app);
 
-getBooks(db);
+loadBooks(db);
