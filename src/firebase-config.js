@@ -14,4 +14,16 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const firebaseAppConfig = getFirebaseConfig();
+
+export function getFirebaseConfig() {
+  if (!firebaseConfig || !firebaseConfig.apiKey) {
+    throw new Error(
+      'No Firebase configuration object provided.' +
+        '\n' +
+        "Add your web app's configuration object to firebase-config.js"
+    );
+  } else {
+    return firebaseConfig;
+  }
+}

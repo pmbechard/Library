@@ -23,11 +23,73 @@ import { getHeader } from './components/Header';
 import { getMainContent } from './components/MainContent';
 import { getFooter } from './components/Footer';
 import { getModals } from './components/modals/Modals';
-
 import './styles.css';
+
+import { initializeApp } from 'firebase/app';
+import { getFirebaseConfig } from './firebase-config.js';
+
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  query,
+  orderBy,
+  onSnapshot,
+  setDoc,
+  updateDoc,
+  doc,
+  serverTimestamp,
+} from 'firebase/firestore';
 
 getHeader();
 getMainContent();
 getFooter();
 // FIXME:
 getModals();
+
+const addNewBtn = document.getElementById('add-new-book-button');
+addNewBtn.addEventListener('click', () => {
+  const submitFormInputs = document.querySelectorAll('.modal input');
+  submitFormInputs.forEach((input) => {
+    input.value = '';
+    input.style.borderColor = '';
+  });
+  addNewBookModal.style.display = 'block';
+});
+
+async function addNewBook(bookObj) {
+  try {
+    await addDoc(collection(getFirestore(), 'books'), { ...bookObj });
+  } catch (error) {
+    console.error('Error writing new message to Firebase Database', error);
+  }
+}
+
+// function loadBooks() {
+//   const booksQuery = query(
+//     collection(getFirestore(), 'books'),
+//     orderBy('title', 'asc')
+//   );
+
+//   onSnapshot(booksQuery, function (snapshot) {
+//     snapshot.docChanges().forEach(function (change) {
+//       if (change.type === 'removed') {
+//         deleteBook(change.doc.id);
+//       } else {
+//         var book = change.doc.data();
+//         displayBook(
+//           change.doc.id,
+//           title,
+//           book.author,
+//           book.year,
+//           book.publisher,
+//           book.numInStock,
+//           book.currentlyHeldBy
+//         );
+//       }
+//     });
+//   });
+// }
+
+const firebaseAppConfig = getFirebaseConfig();
+initializeApp(firebaseAppConfig);
