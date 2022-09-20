@@ -33,7 +33,10 @@ import {
   collection,
   addDoc,
   getDocs,
+  getDoc,
+  deleteDoc,
   query,
+  where,
   orderBy,
   onSnapshot,
   setDoc,
@@ -44,6 +47,7 @@ import {
 
 import { newBookModal } from './components/filterBar/functions/AddNewBook';
 import infoIcon from './img/info.svg';
+import { removeBookModal } from './components/filterBar/functions/RemoveBook';
 
 getHeader();
 getMainContent();
@@ -56,22 +60,42 @@ addNewBtn.addEventListener('click', () => {
   newBookModal(addNewBook);
 });
 
+const removeButton = document.getElementById('remove-book-button');
+removeButton.addEventListener('click', () => {
+  removeBookModal(removeBook, getBooks());
+});
+
 async function addNewBook(bookObj) {
   try {
-    await addDoc(collection(getFirestore(), 'books'), { ...bookObj });
+    await addDoc(collection(db, 'books'), { ...bookObj });
   } catch (error) {
     console.error('Error writing new message to Firebase Database', error);
   }
 }
 
-async function loadBooks(db) {
+async function removeBook(obj) {
+  if (typeof obj === 'string') {
+    await deleteDoc(doc(db, 'books', obj));
+  } else {
+    const q = query(collection(db, 'books'), where('title', '==', obj.title));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach(async (item) => {
+      await deleteDoc(doc(db, 'books', item.id));
+    });
+  }
+  loadBooks(db);
+}
+
+async function loadBooks(db = db) {
   const booksCol = collection(db, 'books');
+  const tbody = document.querySelector('tbody');
+  tbody.innerHTML = '';
   onSnapshot(booksCol, function (snapshot) {
     snapshot.docChanges().forEach(function (change) {
       if (change.type === 'removed') {
-        deleteBook(change.doc.id);
+        removeBook(change.doc.id);
       } else {
-        var book = change.doc.data();
+        const book = change.doc.data();
         displayBook({
           id: change.doc.id,
           title: book.title,
@@ -84,6 +108,14 @@ async function loadBooks(db) {
       }
     });
   });
+}
+
+async function getBooks() {
+  const books = query(collection(db, 'books'));
+  const data = await getDocs(books);
+  const dataList = [];
+  data.forEach((doc) => dataList.push(doc.data()));
+  return dataList;
 }
 
 function displayBook({ ...book }) {
@@ -106,8 +138,6 @@ function displayBook({ ...book }) {
   infoImg.src = infoIcon;
   moreInfo.appendChild(infoImg);
 }
-
-function deleteBook(id) {}
 
 const firebaseAppConfig = getFirebaseConfig();
 const app = initializeApp(firebaseAppConfig);

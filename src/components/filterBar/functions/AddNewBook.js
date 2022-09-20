@@ -1,6 +1,6 @@
 import { Book } from '../../classes/Book';
 
-export function newBookModal(addNewBook) {
+export async function newBookModal(addNewBook) {
   const addNewBookModal = document.getElementById('add-new-book-modal');
   const closeNewBookModal = document.querySelector(
     '#add-new-book-modal .close'
