@@ -48,6 +48,11 @@ import {
 import { newBookModal } from './components/filterBar/functions/AddNewBook';
 import infoIcon from './img/info.svg';
 import { removeBookModal } from './components/filterBar/functions/RemoveBook';
+import { addExistingModal } from './components/filterBar/functions/AddExistingBook';
+
+const firebaseAppConfig = getFirebaseConfig();
+const app = initializeApp(firebaseAppConfig);
+const db = getFirestore(app);
 
 getHeader();
 getMainContent();
@@ -65,6 +70,11 @@ removeButton.addEventListener('click', () => {
   removeBookModal(removeBook, modifyBook, getBooks);
 });
 
+const addExistingButton = document.getElementById('add-existing-book-button');
+addExistingButton.addEventListener('click', () =>
+  addExistingModal(modifyBook, getBooks)
+);
+
 async function addNewBook(obj) {
   let id = obj.title.toLowerCase().replaceAll(' ', '-');
   await setDoc(doc(db, 'books', `${id}`), {
@@ -74,11 +84,15 @@ async function addNewBook(obj) {
 }
 
 async function removeBook(obj) {
+  const tbody = document.querySelector('tbody');
+  tbody.innerHTML = '';
   await deleteDoc(doc(db, 'books', obj.id));
   loadBooks();
 }
 
 async function modifyBook(obj, stock) {
+  const tbody = document.querySelector('tbody');
+  tbody.innerHTML = '';
   await updateDoc(doc(db, 'books', obj.id), {
     numInStock: `${stock}`,
   });
@@ -136,9 +150,5 @@ function displayBook({ ...book }) {
   infoImg.src = infoIcon;
   moreInfo.appendChild(infoImg);
 }
-
-const firebaseAppConfig = getFirebaseConfig();
-const app = initializeApp(firebaseAppConfig);
-const db = getFirestore(app);
 
 loadBooks();
