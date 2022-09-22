@@ -1,7 +1,6 @@
-export async function removeBookModal(removeBook, data) {
-  let books = await data;
+export async function removeBookModal(removeBook, modifyBook, data) {
+  let books = await data();
   const removeBookModal = document.getElementById('remove-book-modal');
-  const removeBookButton = document.getElementById('remove-book-button');
   const closeRemoveBookModal = document.querySelector(
     '#remove-book-modal .close'
   );
@@ -9,11 +8,11 @@ export async function removeBookModal(removeBook, data) {
   const amountToRemove = document.getElementById('remove-amount');
   removeBookModal.style.display = 'block';
 
-  bookToRemove.addEventListener('change', async () => {
-    const matchFound = await books.filter(
+  bookToRemove.addEventListener('change', () => {
+    const matchFound = books.filter(
       (book) => book.title === bookToRemove.value
     );
-    if (matchFound) {
+    if (matchFound.length === 1) {
       const maxLimit = matchFound[0].numInStock;
       amountToRemove.setAttribute('max', maxLimit);
     }
@@ -53,12 +52,14 @@ export async function removeBookModal(removeBook, data) {
   const submitRemoveBook = document.getElementById('submit-remove-book');
   submitRemoveBook.addEventListener('click', async () => {
     if (bookToRemove.value !== '' && amountToRemove.value !== '') {
-      await books.forEach((item) => {
+      books.forEach((item) => {
         if (item.title === bookToRemove.value) {
           let remainingStock =
             parseInt(item.numInStock) - parseInt(amountToRemove.value);
           if (remainingStock === 0) {
             removeBook(item);
+          } else {
+            modifyBook(item, remainingStock);
           }
         }
         removeBookModal.style.display = 'none';
